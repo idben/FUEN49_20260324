@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        ul {
+            padding: 0;
+        }
+
+        ul li {
+            list-style: none;
+            padding: 8px 16px;
+            margin: 4px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: move;
+        }
+
+        ul li.dragging {
+            opacity: 0.5;
+        }
+    </style>
+    <title>拖曳排序</title>
+</head>
+
+<body>
+    <ul id="sortableList">
+        <li draggable="true">項目 1</li>
+        <li draggable="true">項目 2</li>
+        <li draggable="true">項目 3</li>
+        <li draggable="true">項目 4</li>
+    </ul>
+
+    <script>
+        let dragedItem = null;
+
+        document.querySelectorAll("#sortableList li").forEach(item => {
+            item.addEventListener("dragstart", e => {
+                dragedItem = e.target;
+                e.target.classList.add("dragging");
+            });
+            item.addEventListener("dragend", e => {
+                e.target.classList.remove("dragging");
+            });
+            item.addEventListener("dragover", e => e.preventDefault());
+            item.addEventListener("drop", e => {
+                e.preventDefault();
+                if (dragedItem == e.target) return console.log("在自己身上放開");
+                let list = dragedItem.parentNode;
+                // list.insertBefore(dragedItem, e.target);
+                list.insertBefore(dragedItem, e.target.nextSibling);
+
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
