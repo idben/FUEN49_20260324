@@ -11,19 +11,39 @@
             border-radius: 50%;
             background-color: #e65454;
         }
+
+        .rect {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 150px;
+            height: 80px;
+            background-color: #d6d6d6;
+            display: grid;
+            place-items: center;
+        }
     </style>
     <title>簡單的拖曳操作範例</title>
 </head>
 
 <body>
     <div class="ball" draggable="true"></div>
+    <div class="rect">拖曳到這裡來</div>
 
     <script>
         const ball = document.querySelector(".ball");
+        const rect = document.querySelector(".rect");
 
         ball.addEventListener("dragstart", (evn) => {
             console.log("dragstart");
             evn.dataTransfer.setData("text/plain", "這是圓形");
+        });
+
+        rect.addEventListener("dragover", e => e.preventDefault());
+        rect.addEventListener("drop", e => {
+            e.preventDefault();
+            const data = e.dataTransfer.getData("text");
+            e.target.textContent = data;
         });
     </script>
 </body>
