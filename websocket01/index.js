@@ -8,6 +8,10 @@ app.get("/", (req, res) => {
     res.send("Hello Server");
 });
 
+app.get("/cart", (req, res) => {
+    res.send("This is Cart");
+});
+
 
 
 app.listen(PORT, () => {
