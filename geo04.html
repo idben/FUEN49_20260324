@@ -41,15 +41,22 @@
     }).then((data) => {
       console.log(data);
       const lines = data.trim().split("\n");
-      locations = lines.slice(1);
+      locations = lines.slice(1).map(line => {
+        const ary = line.split(",");
+        return {
+          lat: parseFloat(ary[7]),
+          lon: parseFloat(ary[6]),
+          name: `${ary[2]} ${ary[3]}`
+        }
+      });
       console.log(locations);
-
+      getGeolocation();
 
     }).catch(() => {
 
     });
 
-    // getGeolocation();
+    // 
 
     function getGeolocation() {
       if (!navigator.geolocation) {
@@ -64,7 +71,7 @@
           locations.forEach(location => {
             L.marker([location.lat, location.lon])
               .addTo(map)
-              .bindPopup(`你的位置：<br>緯度：${location.lat}<br>經度：${location.lon}<br>`)
+              .bindPopup(`${location.name}：<br>緯度：${location.lat}<br>經度：${location.lon}<br>`)
               .openPopup();
           });
 
