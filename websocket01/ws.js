@@ -7,6 +7,12 @@ wss.on("connection", (connection) => {
     connection.on("message", (message) => {
         console.log(`收到訊息: ${message}`);
 
+        wss.clients.forEach(client => {
+            if (client.readyState == WebSocket.OPEN) {
+                client.send(message);
+            }
+        });
+
     });
 
     connection.on("close", () => {
