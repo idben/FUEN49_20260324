@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .img {
+            width: 300px;
+            height: 300px;
+        }
+
+        .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <title>實做 1 - 讀取圖片</title>
+</head>
+
+<body>
+    <input type="file" name="myFile" accept="audio/*">
+    <br>
+    <br>
+    <audio id="player" controls></audio>
+
+    <script>
+        document.querySelector("input[name=myFile]").addEventListener("change", e => {
+            const file = e.target.files[0];
+
+            const reader = new FileReader();
+
+            reader.addEventListener("load", e => {
+                player.src = e.target.result;
+                player.play();
+            });
+
+            reader.readAsDataURL(file);
+
+        });
+    </script>
+</body>
+
+</html>
