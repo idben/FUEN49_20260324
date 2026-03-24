@@ -35,12 +35,31 @@
         const btnRequestPermission = document.querySelector("#btnRequestPermission");
         const btnSendNotification = document.querySelector("#btnSendNotification");
 
+        btnSendNotification.addEventListener("click", sendNotification);
+
         btnRequestPermission.addEventListener("click", () => {
             Notification.requestPermission().then((result) => {
                 console.log(result);
-
+                if (result == "granted") return showMessage("已取得權限", "success");
+                if (result == "denied") return showMessage("使用者拒絕", "danger");
             });
         });
+
+        function showMessage(msg, type = "info") {
+            messageArea.innerHTML = `<div class="alert alert-${type}" role="alert">${msg}</div>`;
+            setTimeout(() => {
+                messageArea.innerHTML = "";
+            }, 3000);
+        }
+
+        function sendNotification() {
+            new Notification("通知測試", {
+                body: "這是一則來自 Notification API 的通知",
+                icon: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/bell.svg"
+            });
+
+            showMessage("已發送通知", "primary");
+        }
     </script>
 </body>
 
