@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .dropArea {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            display: grid;
+            place-items: center;
+            color: #ccc;
+            transition: border 0.3s ease;
+
+            &:hover {
+                border-color: rgb(255, 89, 0);
+            }
+
+            &.hover {
+                border-color: rgb(255, 89, 0);
+            }
+        }
+    </style>
+    <title>拖曳上傳</title>
+</head>
+
+<body>
+    <div class="dropArea" id="dropArea">
+        拖曳檔案到這裡
+    </div>
+
+    <script>
+        const dropArea = document.querySelector("#dropArea");
+
+        ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+            dropArea.addEventListener(eventName, e => {
+                e.preventDefault();
+                e.stopPropagation(); // 阻止事件的向上傳遞
+            });
+        });
+
+        ["dragenter", "dragover"].forEach(eventName => {
+            dropArea.addEventListener(eventName, e => e.target.classList.add("hover"));
+        });
+
+        ["dragleave", "drop"].forEach(eventName => {
+            dropArea.addEventListener(eventName, e => e.target.classList.remove("hover"));
+        });
+
+        dropArea.addEventListener("drop", e => {
+            // fetch("API的網址", {
+            //     method: "POST",
+            //     // body
+            // }).then().then().catch()
+        });
+
+    </script>
+</body>
+
+</html>
