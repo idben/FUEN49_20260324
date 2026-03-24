@@ -31,6 +31,8 @@
         <li draggable="true">項目 2</li>
         <li draggable="true">項目 3</li>
         <li draggable="true">項目 4</li>
+        <li draggable="true">項目 5</li>
+        <li draggable="true">項目 6</li>
     </ul>
 
     <script>
@@ -49,7 +51,11 @@
                 e.preventDefault();
                 if (dragedItem == e.target) return console.log("在自己身上放開");
                 let list = dragedItem.parentNode;
-                // list.insertBefore(dragedItem, e.target);
+                const indexDrag = [...list.children].indexOf(dragedItem);
+                const indexDrop = [...list.children].indexOf(e.target);
+                console.log(indexDrag, indexDrop);
+
+                if (indexDrag > indexDrop) return list.insertBefore(dragedItem, e.target);
                 list.insertBefore(dragedItem, e.target.nextSibling);
 
             });
