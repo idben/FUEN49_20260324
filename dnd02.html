@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e65454;
+            margin-bottom: 5px;
+        }
+
+        .rect {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 150px;
+            height: 80px;
+            background-color: #d6d6d6;
+            display: grid;
+            place-items: center;
+        }
+
+        .ball2 {
+            background-color: #07ec72;
+        }
+
+        .ball3 {
+            background-color: #ffde08;
+        }
+    </style>
+    <title>簡單的拖曳操作範例 2</title>
+</head>
+
+<body>
+    <div class="ball ball1" draggable="true" data-color="#e65454"></div>
+    <div class="ball ball2" draggable="true" data-color="#07ec72"></div>
+    <div class="ball ball3" draggable="true" data-color="#ffde08"></div>
+    <div class="rect">拖曳到這裡來</div>
+
+    <script>
+        const balls = document.querySelectorAll(".ball");
+        const rect = document.querySelector(".rect");
+
+        balls.forEach(ball => {
+            ball.addEventListener("dragstart", (evn) => {
+                const color = evn.target.dataset.color;
+                evn.dataTransfer.setData("text/plain", color);
+            });
+        });
+
+
+
+        rect.addEventListener("dragover", e => e.preventDefault());
+        rect.addEventListener("drop", e => {
+            e.preventDefault();
+            const data = e.dataTransfer.getData("text");
+            e.target.style.backgroundColor = data;
+        });
+    </script>
+</body>
+
+</html>
